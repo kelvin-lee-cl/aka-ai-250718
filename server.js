@@ -8,13 +8,13 @@ const { getStorage, ref, uploadBytes, getDownloadURL } = require('firebase/stora
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDVCrIzYph3HvafHbgZfDtTSdCm48Xsq2E",
-    authDomain: "aka-ai-250718.firebaseapp.com",
-    projectId: "aka-ai-250718",
-    storageBucket: "aka-ai-250718.firebasestorage.app",
-    messagingSenderId: "1042609271038",
-    appId: "1:1042609271038:web:f502bf4bbac6a801b875af",
-    measurementId: "G-XQ65HT0PTH"
+    apiKey: "AIzaSyBvp5blL0lt5qjUontHu9-XNZWUhyd-CP8",
+    authDomain: "iw01-aka-250730.firebaseapp.com",
+    projectId: "iw01-aka-250730",
+    storageBucket: "iw01-aka-250730.firebasestorage.app",
+    messagingSenderId: "847995505775",
+    appId: "1:847995505775:web:bdf1877cbd283a65da919a",
+    measurementId: "G-B7LHQEMYKT"
 };
 
 // Initialize Firebase
@@ -141,34 +141,58 @@ app.post('/api/verify-key', async (req, res) => {
 // Proxy endpoint for text-to-image generation
 app.post('/api/generate-image', async (req, res) => {
     try {
+        const aiType = req.body.aiType || 'recraft_ai';
         const requestBody = {
             prompt: req.body.prompt,
             style: req.body.style,
             size: req.body.size
         };
 
-        console.log('Sending request to Recraft AI:', {
-            url: 'https://external.api.recraft.ai/v1/images/generations',
-            method: 'POST',
-            headers: {
+        let apiUrl, headers, body;
+
+        if (aiType === 'recraft_ai') {
+            apiUrl = 'https://external.api.recraft.ai/v1/images/generations';
+            headers = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${req.body.apiKey}`
-            },
-            body: requestBody
+            };
+            body = JSON.stringify(requestBody);
+        } else if (aiType === 'playground_ai') {
+            // Playground AI configuration
+            apiUrl = 'https://api.playgroundai.com/v1/images/generations';
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${req.body.apiKey}`
+            };
+            // Transform request for Playground AI format
+            const playgroundBody = {
+                prompt: req.body.prompt,
+                model: 'playground-v2.5',
+                width: parseInt(req.body.size.split('x')[0]),
+                height: parseInt(req.body.size.split('x')[1]),
+                samples: 1
+            };
+            body = JSON.stringify(playgroundBody);
+        } else {
+            throw new Error(`Unsupported AI type: ${aiType}`);
+        }
+
+        console.log(`Sending request to ${aiType}:`, {
+            url: apiUrl,
+            method: 'POST',
+            headers: headers,
+            body: body
         });
 
-        const response = await fetch('https://external.api.recraft.ai/v1/images/generations', {
+        const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${req.body.apiKey}`
-            },
-            body: JSON.stringify(requestBody)
+            headers: headers,
+            body: body
         });
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            console.error('Recraft API Error:', {
+            console.error(`${aiType} API Error:`, {
                 status: response.status,
                 statusText: response.statusText,
                 error: errorData,
@@ -178,12 +202,19 @@ app.post('/api/generate-image', async (req, res) => {
         }
 
         const data = await response.json();
-        console.log('Recraft API Response:', data);
+        console.log(`${aiType} API Response:`, data);
 
         // Transform the response to match the expected format
-        const transformedData = {
-            imageUrl: data.data[0].url
-        };
+        let transformedData;
+        if (aiType === 'recraft_ai') {
+            transformedData = {
+                imageUrl: data.data[0].url
+            };
+        } else if (aiType === 'playground_ai') {
+            transformedData = {
+                imageUrl: data.data[0].url
+            };
+        }
 
         // Track the generated image
         const newImage = {
@@ -265,31 +296,49 @@ app.post('/api/generate-from-image', upload.single('image'), async (req, res) =>
         console.log('- style:', req.body.style);
         console.log('- strength:', req.body.strength);
 
-        console.log('Sending request to Recraft AI:', {
-            url: 'https://external.api.recraft.ai/v1/images/imageToImage',
-            method: 'POST',
-            headers: {
+        const aiType = req.body.aiType || 'recraft_ai';
+
+        let apiUrl, headers;
+
+        if (aiType === 'recraft_ai') {
+            apiUrl = 'https://external.api.recraft.ai/v1/images/imageToImage';
+            headers = {
                 'Authorization': `Bearer ${req.body.apiKey}`
-            },
+            };
+        } else if (aiType === 'playground_ai') {
+            // Playground AI image-to-image endpoint
+            apiUrl = 'https://api.playgroundai.com/v1/images/image-to-image';
+            headers = {
+                'Authorization': `Bearer ${req.body.apiKey}`
+            };
+            // Transform formData for Playground AI if needed
+            formData.append('model', 'playground-v2.5');
+            formData.append('samples', '1');
+        } else {
+            throw new Error(`Unsupported AI type for image-to-image: ${aiType}`);
+        }
+
+        console.log(`Sending image-to-image request to ${aiType}:`, {
+            url: apiUrl,
+            method: 'POST',
+            headers: headers,
             hasImage: true,
             prompt: req.body.prompt,
             style: req.body.style,
             strength: req.body.strength
         });
 
-        const response = await fetch('https://external.api.recraft.ai/v1/images/imageToImage', {
+        const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${req.body.apiKey}`
-            },
+            headers: headers,
             body: formData
         });
 
-        console.log('Recraft API Response Status:', response.status);
-        console.log('Recraft API Response Headers:', Object.fromEntries(response.headers.entries()));
+        console.log(`${aiType} API Response Status:`, response.status);
+        console.log(`${aiType} API Response Headers:`, Object.fromEntries(response.headers.entries()));
 
         const responseText = await response.text();
-        console.log('Recraft API Raw Response:', responseText);
+        console.log(`${aiType} API Raw Response:`, responseText);
 
         if (!response.ok) {
             let errorData;
@@ -298,7 +347,7 @@ app.post('/api/generate-from-image', upload.single('image'), async (req, res) =>
             } catch (e) {
                 errorData = { error: responseText };
             }
-            console.error('Recraft API Error:', {
+            console.error(`${aiType} API Error:`, {
                 status: response.status,
                 statusText: response.statusText,
                 error: errorData,
@@ -311,16 +360,23 @@ app.post('/api/generate-from-image', upload.single('image'), async (req, res) =>
         try {
             data = JSON.parse(responseText);
         } catch (e) {
-            console.error('Failed to parse Recraft API response as JSON:', e);
-            throw new Error('Invalid JSON response from Recraft API');
+            console.error(`Failed to parse ${aiType} API response as JSON:`, e);
+            throw new Error(`Invalid JSON response from ${aiType} API`);
         }
 
-        console.log('Recraft API Response Data:', data);
+        console.log(`${aiType} API Response Data:`, data);
 
         // Transform the response to match the expected format
-        const transformedData = {
-            imageUrl: data.data[0].url
-        };
+        let transformedData;
+        if (aiType === 'recraft_ai') {
+            transformedData = {
+                imageUrl: data.data[0].url
+            };
+        } else if (aiType === 'playground_ai') {
+            transformedData = {
+                imageUrl: data.data[0].url
+            };
+        }
 
         // Track the generated image
         const newImage = {

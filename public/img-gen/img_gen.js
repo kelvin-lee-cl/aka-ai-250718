@@ -4,13 +4,13 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstati
 
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDVCrIzYph3HvafHbgZfDtTSdCm48Xsq2E",
-    authDomain: "aka-ai-250718.firebaseapp.com",
-    projectId: "aka-ai-250718",
-    storageBucket: "aka-ai-250718.firebasestorage.app",
-    messagingSenderId: "1042609271038",
-    appId: "1:1042609271038:web:f502bf4bbac6a801b875af",
-    measurementId: "G-XQ65HT0PTH"
+    apiKey: "AIzaSyBvp5blL0lt5qjUontHu9-XNZWUhyd-CP8",
+    authDomain: "iw01-aka-250730.firebaseapp.com",
+    projectId: "iw01-aka-250730",
+    storageBucket: "iw01-aka-250730.firebasestorage.app",
+    messagingSenderId: "847995505775",
+    appId: "1:847995505775:web:bdf1877cbd283a65da919a",
+    measurementId: "G-B7LHQEMYKT"
 };
 
 // Initialize Firebase
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Compose the prompt in the requested format
         if (character && setting && layoutValue) {
-            generatedPrompt.textContent = `A photo of ${character}, ${setting}, ${layoutValue}, in Pablo Picasso.`;
+            generatedPrompt.textContent = `A photo of ${character}, ${setting}, ${layoutValue} in animation style.`;
         } else {
             generatedPrompt.textContent = 'Select options to generate a prompt...';
         }
@@ -609,13 +609,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Generate image using Recraft AI
+    // Generate image using selected AI provider
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
             const isImageToImage = document.getElementById('imageToImage').checked;
             const prompt = isImageToImage ? imageToImagePrompt.textContent : generatedPrompt.textContent;
             const style = styleSelect ? styleSelect.value : 'realistic_image';
             const size = sizeSelect ? sizeSelect.value : '1024x1024';
+
+            // Get selected AI type from the generation form (default to recraft_ai)
+            const aiType = document.querySelector('input[name="aiType"]:checked')?.value || 'recraft_ai';
 
             if (isImageToImage) {
                 if (prompt === 'Describe your photo to generate a prompt...') {
@@ -660,6 +663,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     formData.append('apiKey', RECRAFT_API_KEY);
                     formData.append('style', style);
                     formData.append('strength', '0.2');
+                    formData.append('aiType', aiType);
 
                     console.log('Sending image-to-image request:', {
                         prompt,
@@ -683,7 +687,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         prompt: prompt,
                         style: style,
                         size: size,
-                        apiKey: RECRAFT_API_KEY
+                        apiKey: RECRAFT_API_KEY,
+                        aiType: aiType
                     };
 
                     console.log('Sending text-to-image request:', requestBody);

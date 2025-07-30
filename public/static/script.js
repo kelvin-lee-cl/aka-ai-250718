@@ -61,7 +61,7 @@ document.addEventListener('keydown', (event) => {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Slides inline viewer logic
-    const totalSlides = 43;
+    const totalSlides = 32;
     let currentSlide = 1;
     const slideImage = document.getElementById('slideImage');
     const slideCounter = document.getElementById('slideCounter');
