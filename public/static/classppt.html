@@ -539,6 +539,96 @@
         <a class="btn btn-primary mx-2" href="https://playgroundai.com/" target="_blank"
             rel="noopener noreferrer">Playground AI</a>
     </div>
+
+<div class="container mt-5 order-md-2">
+        <h2>課堂練習提交箱:</h2>
+        <ul class="nav nav-tabs mb-3" id="storyTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab1-1" data-bs-toggle="tab" data-bs-target="#content1-1"
+                    type="button" role="tab">1.1</button>
+            </li>
+            <li class="nav-item d-none" role="presentation">
+                <button class="nav-link" id="tab1-2" data-bs-toggle="tab" data-bs-target="#content1-2" type="button"
+                    role="tab">1.2</button>                </li>
+        </ul>
+        <form id="dataForm_ws1" class="text-submission-elements">
+            <div class="tab-content" id="storyTabContent">
+            <!-- Tab 1.1 -->
+            <div class="tab-pane fade show active" id="content1-1" role="tabpanel">
+                <div class="form-outline">
+                <textarea type="text" id="richTextInput1-1" name="id1-1" class="form-control scrollable-textarea" rows="10"></textarea>
+                <label class="form-label" for="richTextInput1-1">1.1</label>
+            </div>
+            </div>
+    
+             <!-- Tab 1.2 -->
+            <div class="tab-pane fade" id="content1-2" role="tabpanel">
+                <div class="form-outline">
+                <textarea type="text" id="richTextInput1-2" name="id1-2" class="form-control scrollable-textarea" rows="10"
+                    placeholder="請提交storytribe故事的鏈接"></textarea>
+                <label class="form-label" for="richTextInput1-2">1.2</label>
+            </div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-3">
+                <div class="btn-group d-none d-md-flex" role="group" aria-label="Font Size Controls">
+                    <button type="button" class="btn btn-primary"
+                        onclick="changeFontSize(-2)">Smaller</button>
+                    <button type="button" class="btn btn-primary"
+                        onclick="changeFontSize(2)">Bigger</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary"
+                    data-loading-text="上傳中..." id="submitTextBtn1" onclick="uploadText()">提交</button>
+                <button type="button" class="btn btn-warning" id="testFirebaseBtn"
+                    onclick="testFirebaseConnection()">Test Firebase</button>
+                <input class="d-none" type="text" id="name_1" name="name_1" value=currentUserId required>
+            </div>
+        </form>
+</div>
+    
+    <div class="container order-md-2" id="photoUploadSection">
+        <h4 class="mb-3">上傳故事圖片</h4>
+    
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <label for="imageName" class="form-label">圖片名稱</label>
+                    <input type="text" class="form-control" id="imageName1" placeholder="請輸入圖片名稱">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="imageUpload" class="form-label">選擇圖片</label>
+                    <input type="file" class="form-control" id="imageUpload1" multiple accept="image/*">
+                </div>
+    
+                <div class="mb-3">
+                    <div id="imagePreview" class="d-flex flex-wrap gap-3">
+                        <!-- Preview images will be displayed here -->
+                    </div>
+                </div>
+    
+                <button type="button" class="btn btn-primary" id="uploadButton1">上傳圖片</button>
+                <button type="button" class="btn btn-primary" id="viewPhotosButton">查看圖片</button>
+            </div>
+        </div>
+    </div>
+            <div class="modal fade" id="photosModal2" tabindex="-1" aria-labelledby="photosModalLabel2" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="photosModalLabel2">已上傳的圖片</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="photoGallery2" class="d-flex flex-wrap gap-3">
+                                <!-- Photos will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/e067495424.js" crossorigin="anonymous"></script>
     <script type="module">
@@ -549,14 +639,14 @@
 
         // Firebase Configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyAJIqjrPduW9lqUJY7dTfZz8PPfcEmeo28",
-            authDomain: "iw10-250516-cps-parentchild.firebaseapp.com",
-            projectId: "iw10-250516-cps-parentchild",
-            storageBucket: "iw10-250516-cps-parentchild.firebasestorage.app",
-            messagingSenderId: "926068503977",
-            appId: "1:926068503977:web:f7e0b57ae472dd04b380b8",
-            measurementId: "G-6KSXXPX47L"
-        };
+                apiKey: "AIzaSyDVCrIzYph3HvafHbgZfDtTSdCm48Xsq2E",
+                authDomain: "aka-ai-250718.firebaseapp.com",
+                projectId: "aka-ai-250718",
+                storageBucket: "aka-ai-250718.firebasestorage.app",
+                messagingSenderId: "1042609271038",
+                appId: "1:1042609271038:web:f502bf4bbac6a801b875af",
+                measurementId: "G-XQ65HT0PTH"
+            };
 
         // Initialize Firebase
         let app, storage;
