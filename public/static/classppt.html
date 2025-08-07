@@ -360,7 +360,7 @@
         }
 
         .card-header {
-            background-color: var(--secondary-color) !important;
+            background-color: #2c7edc;
             border-bottom: 1px solid var(--border-color);
             padding: 0.75rem 1.25rem;
         }
@@ -540,12 +540,11 @@
             rel="noopener noreferrer">Playground AI</a>
         <a class="btn btn-primary mx-2" href="https://www.midjourney.com/" target="_blank"
             rel="noopener noreferrer">Midjourney</a>
-        <a class="btn btn-primary mx-2" href="https://poe.com/" target="_blank"
-            rel="noopener noreferrer">Poe</a>
+        <a class="btn btn-primary mx-2" href="https://poe.com/" target="_blank" rel="noopener noreferrer">Poe</a>
     </div>
 
 
-<div class="container mt-5 order-md-2">
+    <div class="container mt-5 order-md-2">
         <h2>課堂練習提交箱:</h2>
         <ul class="nav nav-tabs mb-3" id="storyTabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -554,86 +553,124 @@
             </li>
             <li class="nav-item d-none" role="presentation">
                 <button class="nav-link" id="tab1-2" data-bs-toggle="tab" data-bs-target="#content1-2" type="button"
-                    role="tab">4.2</button>                </li>
+                    role="tab">4.2</button>
+            </li>
         </ul>
         <form id="dataForm_ws1" class="text-submission-elements">
             <div class="tab-content" id="storyTabContent">
-            <!-- Tab 4.1 -->
-            <div class="tab-pane fade show active" id="content1-1" role="tabpanel">
-                <div class="form-outline">
-                <textarea type="text" id="richTextInput1-1" name="id1-1" class="form-control scrollable-textarea" rows="10"
-                placeholder="請提交poe生成的文字"></textarea>
-                <label class="form-label" for="richTextInput1-1">4.1</label>
-            </div>
-            </div>
-    
-             <!-- Tab 4.2 -->
-            <div class="tab-pane fade" id="content1-2" role="tabpanel">
-                <div class="form-outline">
-                <textarea type="text" id="richTextInput1-2" name="id1-2" class="form-control scrollable-textarea" rows="10"
-                    placeholder="請提交storytribe故事的連結"></textarea>
-                <label class="form-label" for="richTextInput1-2">4.2</label>
-            </div>
-            </div>
-
-            <div class="d-flex justify-content-between mt-3">
-                <div class="btn-group d-none d-md-flex" role="group" aria-label="Font Size Controls">
-                    <button type="button" class="btn btn-primary"
-                        onclick="changeFontSize(-2)">Smaller</button>
-                    <button type="button" class="btn btn-primary"
-                        onclick="changeFontSize(2)">Bigger</button>
+                <!-- Tab 4.1 -->
+                <div class="tab-pane fade show active" id="content1-1" role="tabpanel">
+                    <div class="form-outline">
+                        <textarea type="text" id="richTextInput1-1" name="id1-1"
+                            class="form-control scrollable-textarea" rows="10" placeholder="請提交poe生成的文字"></textarea>
+                        <label class="form-label" for="richTextInput1-1">4.1</label>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary"
-                    data-loading-text="上傳中..." id="submitTextBtn1" onclick="uploadText()">提交</button>
-                <button type="button" class="btn btn-warning" id="testFirebaseBtn"
-                    onclick="testFirebaseConnection()">Test Firebase</button>
-                <input class="d-none" type="text" id="name_1" name="name_1" value=currentUserId required>
-            </div>
+                <!-- Tab 4.2 -->
+                <div class="tab-pane fade" id="content1-2" role="tabpanel">
+                    <div class="form-outline">
+                        <textarea type="text" id="richTextInput1-2" name="id1-2"
+                            class="form-control scrollable-textarea" rows="10"
+                            placeholder="請提交storytribe故事的連結"></textarea>
+                        <label class="form-label" for="richTextInput1-2">4.2</label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-3">
+
+
+                    <button type="submit" class="btn btn-primary " data-loading-text="上傳中..."
+                        id="submitTextBtn1">提交</button>
+                    <button type="button" class="btn btn-warning d-none" id="testFirebaseBtn"
+                        onclick="testFirebaseConnection()">Test Firebase</button>
+                    <input class="d-none" type="text" id="name_1" name="name_1" value=currentUserId required>
+                </div>
         </form>
-</div>
-    
+    </div>
+
     <div class="container order-md-2" id="photoUploadSection">
         <h4 class="mb-3">上傳故事圖片</h4>
-    
+
         <div class="row">
             <div class="col-12">
                 <div class="mb-3">
                     <label for="imageName" class="form-label">圖片名稱</label>
                     <input type="text" class="form-control" id="imageName" placeholder="請輸入圖片名稱">
                 </div>
-    
+
                 <div class="mb-3">
                     <label for="imageUpload" class="form-label">選擇圖片</label>
                     <input type="file" class="form-control" id="imageUpload" multiple accept="image/*">
                 </div>
-    
+
                 <div class="mb-3">
                     <div id="imagePreview" class="d-flex flex-wrap gap-3">
                         <!-- Preview images will be displayed here -->
                     </div>
                 </div>
-    
+
                 <button type="button" class="btn btn-primary" id="uploadButton">上傳圖片</button>
                 <button type="button" class="btn btn-primary" id="viewPhotosButton">查看圖片</button>
             </div>
         </div>
     </div>
-            <div class="modal fade" id="photosModal2" tabindex="-1" aria-labelledby="photosModalLabel2" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="photosModalLabel2">已上傳的圖片</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="photosModal2" tabindex="-1" aria-labelledby="photosModalLabel2" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="photosModalLabel2">已上傳的圖片</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="photoGallery2" class="d-flex flex-wrap gap-3">
+                        <!-- Photos will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div> </div>
+
+    <!-- Dashboard to show all submitted text -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0 text-white">
+                            <i class="fas fa-chart-bar me-2 text-white"></i>提交內容總覽
+                            <span id="adminIndicator" class="badge bg-danger ms-2 d-none">
+                                <i class="fas fa-shield-alt me-1"></i>管理員模式
+                            </span>
+                        </h4>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                onclick="loadSubmissions('all')">
+                                <i class="fas fa-sync-alt me-1"></i>刷新
+                            </button>
+                            <button type="button" class="btn btn-outline-success btn-sm"
+                                onclick="loadSubmissions('recent')">
+                                <i class="fas fa-clock me-1"></i>最新
+                            </button>
+
                         </div>
-                        <div class="modal-body">
-                            <div id="photoGallery2" class="d-flex flex-wrap gap-3">
-                                <!-- Photos will be displayed here -->
+                    </div>
+                    <div class="card-body">
+                        <div id="submissionsLoading" class="text-center d-none">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">載入中...</span>
                             </div>
+                            <p class="mt-2">載入提交內容中...</p>
+                        </div>
+                        <div id="submissionsContainer">
+                            <!-- Submissions will be loaded here -->
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/e067495424.js" crossorigin="anonymous"></script>
@@ -645,206 +682,155 @@
 
         // Firebase Configuration
         const firebaseConfig = {
-                apiKey: "AIzaSyDVCrIzYph3HvafHbgZfDtTSdCm48Xsq2E",
-                authDomain: "aka-ai-250718.firebaseapp.com",
-                projectId: "aka-ai-250718",
-                storageBucket: "aka-ai-250718.firebasestorage.app",
-                messagingSenderId: "1042609271038",
-                appId: "1:1042609271038:web:f502bf4bbac6a801b875af",
-                measurementId: "G-XQ65HT0PTH"
-            };
+            apiKey: "AIzaSyDVCrIzYph3HvafHbgZfDtTSdCm48Xsq2E",
+            authDomain: "aka-ai-250718.firebaseapp.com",
+            projectId: "aka-ai-250718",
+            storageBucket: "aka-ai-250718.firebasestorage.app",
+            messagingSenderId: "1042609271038",
+            appId: "1:1042609271038:web:f502bf4bbac6a801b875af",
+            measurementId: "G-XQ65HT0PTH"
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const storage = getStorage(app);
-    const db = getFirestore(app);
-    window.fbApp = app;
-    window.fbDb = db;
-    window.fbStorage = storage;
-    window.fbServerTimestamp = serverTimestamp;
-    window.fbAddDoc = addDoc;
-    window.fbCollection = collection;
-    window.fbRef = ref;
-    window.fbListAll = listAll;
-    window.fbGetDownloadURL = getDownloadURL;
-    window.fbUploadBytes = uploadBytes;
-    function setupLessonSubmit(formId, btnId, textareaIds, labelSelectors) {
-        const submitBtn = document.getElementById(btnId);
-        if (!submitBtn) return;
-        submitBtn.addEventListener('click', async function () {
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = submitBtn.getAttribute('data-loading-text') || "上傳中...";
-            const currentUserId = localStorage.getItem('currentUserId');
-            if (!currentUserId) {
-                alert('請先登入！');
+        // Initialize Firebase once
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const storage = getStorage(app);
+        const db = getFirestore(app);
+
+        // Make Firebase services available globally
+        window.fbApp = app;
+        window.fbDb = db;
+        window.fbStorage = storage;
+        window.fbServerTimestamp = serverTimestamp;
+        window.fbAddDoc = addDoc;
+        window.fbCollection = collection;
+        window.fbRef = ref;
+        window.fbGetDownloadURL = getDownloadURL;
+        window.fbUploadBytes = uploadBytes;
+        window.fbQuery = query;
+        window.fbWhere = where;
+        window.fbOrderBy = orderBy;
+        window.fbGetDocs = getDocs;
+        window.fbDoc = doc;
+        window.fbGetDoc = getDoc;
+        window.fbDeleteDoc = deleteDoc;
+        function setupLessonSubmit(formId, btnId, textareaIds, labelSelectors) {
+            const submitBtn = document.getElementById(btnId);
+            if (!submitBtn) return;
+            submitBtn.addEventListener('click', async function () {
+                const originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = submitBtn.getAttribute('data-loading-text') || "上傳中...";
+                const currentUserId = localStorage.getItem('currentUserId');
+                if (!currentUserId) {
+                    alert('請先登入！');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    return;
+                }
+                let hasSubmission = false;
+                let errorOccurred = false;
+                for (const id of textareaIds) {
+                    const textarea = document.getElementById(id);
+                    if (textarea && textarea.value.trim()) {
+                        hasSubmission = true;
+                        const section = id.replace('richTextInput', '');
+                        const result = await uploadText(textarea.value, section, currentUserId, 'ws1');
+                        if (!result) errorOccurred = true;
+                    }
+                }
+                if (!hasSubmission) {
+                    alert('請先輸入內容再提交！');
+                } else if (errorOccurred) {
+                    alert('有部分內容提交失敗，請檢查網絡或稍後再試。');
+                } else {
+                    textareaIds.forEach(id => { const t = document.getElementById(id); if (t) t.value = ''; });
+                    document.querySelectorAll(labelSelectors).forEach(label => { label.textContent = `成功提交`; });
+                }
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
-                return;
-            }
-            let hasSubmission = false;
-            let errorOccurred = false;
-            for (const id of textareaIds) {
-                const textarea = document.getElementById(id);
-                if (textarea && textarea.value.trim()) {
-                    hasSubmission = true;
-                    const section = id.replace('richTextInput', '');
-                    const result = await uploadText(textarea.value, section, currentUserId, 'ws1');
-                    if (!result) errorOccurred = true;
-                }
-            }
-            if (!hasSubmission) {
-                alert('請先輸入內容再提交！');
-            } else if (errorOccurred) {
-                alert('有部分內容提交失敗，請檢查網絡或稍後再試。');
-            } else {
-                textareaIds.forEach(id => { const t = document.getElementById(id); if (t) t.value = ''; });
-                document.querySelectorAll(labelSelectors).forEach(label => { label.textContent = `成功提交`; });
-            }
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-        });
-    }
-    setupLessonSubmit('dataForm_ws1', 'submitTextBtn1', ['richTextInput1-1', 'richTextInput1-2'], '#storyTabContent .form-label');
+            });
+        }
+        setupLessonSubmit('dataForm_ws1', 'submitTextBtn1', ['richTextInput1-1', 'richTextInput1-2'], '#storyTabContent .form-label');
 
-    export async function uploadText(text, section, userId, workshop) {
+        // Make uploadText available globally
+        window.uploadText = async function (text, section, userId, workshop) {
+            console.log('uploadText called with:', { text: text.substring(0, 50) + '...', section, userId, workshop });
+
             if (!window.fbDb || !window.fbAddDoc || !window.fbCollection) {
                 console.error('Firebase 未初始化');
+                alert('Firebase 未初始化，請刷新頁面重試');
                 return false;
             }
             if (!text || !userId || !section || !workshop) {
-                console.error('缺少必要參數');
+                console.error('缺少必要參數:', { text: !!text, userId: !!userId, section: !!section, workshop: !!workshop });
+                alert('缺少必要參數，請檢查輸入');
                 return false;
             }
+
             const submissionData = {
                 content: text.trim(),
                 userId: userId,
                 timestamp: window.fbServerTimestamp ? window.fbServerTimestamp() : new Date(),
                 section: section,
-                workshop: workshop
+                workshop: workshop,
+                createdAt: new Date().toISOString(),
+                status: 'submitted'
             };
+
+            console.log('Submitting data to Firebase:', submissionData);
+
             try {
                 const docRef = await window.fbAddDoc(
                     window.fbCollection(window.fbDb, 'submissions'),
                     submissionData
                 );
+                console.log('Successfully uploaded to Firebase with ID:', docRef.id);
+                alert(`提交成功！文檔ID: ${docRef.id}`);
                 return docRef.id;
             } catch (error) {
                 console.error('Firebase upload error:', error);
+                alert(`提交失敗: ${error.message}`);
                 return false;
             }
         }
 
         async function uploadImage(files, imageName, userId, imagePreview, uploadButton) {
-    if (!files.length || !imageName) {
-        alert('請選擇圖片並輸入名稱');
-        return;
-    }
-    try {
-        uploadButton.disabled = true;
-        uploadButton.textContent = '上傳中...';
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const timestamp = Date.now();
-            const fileName = `${userId}_ws1_${imageName}_${i}`;
-            const storageRef = window.fbRef(window.fbStorage, `stories/${fileName}`);
-            await window.fbUploadBytes(storageRef, file);
-            const downloadURL = await window.fbGetDownloadURL(storageRef);
-            // 你可以在這裡處理 downloadURL，例如顯示圖片
-            console.log('File uploaded:', downloadURL);
-        }
-        alert('圖片上傳成功！'); location.reload();
-        if (imagePreview) imagePreview.innerHTML = '';
-    } catch (error) {
-        console.error('Upload error:', error);
-        alert('上傳失敗，請重試');
-    } finally {
-        uploadButton.disabled = false;
-        uploadButton.textContent = '上傳圖片';
-        if (files && files[0] && files[0].ownerDocument) {
-            // 清空 input
-            files[0].ownerDocument.getElementById(uploadButton.id.replace('uploadButton', 'imageUpload')).value = '';
-            files[0].ownerDocument.getElementById(uploadButton.id.replace('uploadButton', 'imageName')).value = '';
-        }
-    }
-}
-
-    async function uploadImage(files, imageName, userId, imagePreview, uploadButton) {
-        if (!files.length || !imageName) {
-            alert('請選擇圖片並輸入名稱');
-            return;
-        }
-        try {
-            uploadButton.disabled = true;
-            uploadButton.textContent = '上傳中...';
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const timestamp = Date.now();
-                const fileName = `${userId}_ws1_${imageName}_${i}`;
-                const storageRef = window.fbRef(window.fbStorage, `stories/${fileName}`);
-                await window.fbUploadBytes(storageRef, file);
-                const downloadURL = await window.fbGetDownloadURL(storageRef);
-                // 你可以在這裡處理 downloadURL，例如顯示圖片
-                console.log('File uploaded:', downloadURL);
+            if (!files.length || !imageName) {
+                alert('請選擇圖片並輸入名稱');
+                return;
             }
-            alert('圖片上傳成功！'); location.reload();
-            if (imagePreview) imagePreview.innerHTML = '';
-        } catch (error) {
-            console.error('Upload error:', error);
-            alert('上傳失敗，請重試');
-        } finally {
-            uploadButton.disabled = false;
-            uploadButton.textContent = '上傳圖片';
-            if (files && files[0] && files[0].ownerDocument) {
-                // 清空 input
-                files[0].ownerDocument.getElementById(uploadButton.id.replace('uploadButton', 'imageUpload')).value = '';
-                files[0].ownerDocument.getElementById(uploadButton.id.replace('uploadButton', 'imageName')).value = '';
-            }
-        }
-    }
-        // Initialize Firebase
-        let app, storage;
-        try {
-            app = initializeApp(firebaseConfig);
-            console.log("Firebase initialized successfully");
-
-            // Initialize Analytics
             try {
-                const analytics = getAnalytics(app);
-                console.log("Firebase Analytics initialized");
-            } catch (analyticsError) {
-                console.warn("Analytics initialization failed:", analyticsError);
+                uploadButton.disabled = true;
+                uploadButton.textContent = '上傳中...';
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    const timestamp = Date.now();
+                    const fileName = `${userId}_ws1_${imageName}_${i}`;
+                    const storageRef = window.fbRef(window.fbStorage, `stories/${fileName}`);
+                    await window.fbUploadBytes(storageRef, file);
+                    const downloadURL = await window.fbGetDownloadURL(storageRef);
+                    // 你可以在這裡處理 downloadURL，例如顯示圖片
+                    console.log('File uploaded:', downloadURL);
+                }
+                alert('圖片上傳成功！'); location.reload();
+                if (imagePreview) imagePreview.innerHTML = '';
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('上傳失敗，請重試');
+            } finally {
+                uploadButton.disabled = false;
+                uploadButton.textContent = '上傳圖片';
+                if (files && files[0] && files[0].ownerDocument) {
+                    // 清空 input
+                    files[0].ownerDocument.getElementById(uploadButton.id.replace('uploadButton', 'imageUpload')).value = '';
+                    files[0].ownerDocument.getElementById(uploadButton.id.replace('uploadButton', 'imageName')).value = '';
+                }
             }
-
-            // Initialize Storage
-            try {
-                storage = getStorage(app);
-                console.log("Firebase Storage initialized successfully");
-
-                // Test storage access
-                const testRef = ref(storage, ".connection_test");
-                console.log("Storage reference created:", testRef);
-            } catch (storageError) {
-                console.error("Storage initialization failed:", storageError);
-                alert("Firebase存儲初始化失敗，上傳功能可能不可用");
-            }
-
-            // Initialize Firestore
-            try {
-                const db = getFirestore(app);
-                console.log("Firestore initialized successfully");
-                window.fbDB = db;
-            } catch (firestoreError) {
-                console.error("Firestore initialization failed:", firestoreError);
-                alert("Firestore初始化失敗，提交功能可能不可用");
-            }
-        } catch (firebaseError) {
-            console.error("Firebase initialization failed:", firebaseError);
-            alert("Firebase初始化失敗，上傳功能不可用");
         }
 
-        // Make storage available globally
-        window.fbStorage = storage;
+
+        // Firebase is already initialized above, no need to reinitialize
 
         // Generate a random user ID if not already set
         if (!localStorage.getItem('currentUserId')) {
@@ -1321,6 +1307,290 @@
 
         // Testing code for debugging purposes
         console.log("Script initialized");
+
+        // Auto-load submissions when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show admin indicator if admin is logged in
+            const adminIndicator = document.getElementById('adminIndicator');
+            if (adminIndicator && isAdmin()) {
+                adminIndicator.classList.remove('d-none');
+            }
+
+            // Load all submissions after a short delay to ensure Firebase is initialized
+            setTimeout(() => {
+                loadSubmissions('all');
+            }, 1000);
+        });
+
+        // Add Firebase connection test function
+        window.testFirebaseConnection = async function () {
+            try {
+                console.log('Testing Firebase connection...');
+
+                if (!window.fbDb) {
+                    alert('Firebase 未初始化');
+                    return false;
+                }
+
+                // Test write to Firestore
+                const testData = {
+                    test: true,
+                    timestamp: new Date().toISOString(),
+                    message: 'Firebase connection test'
+                };
+
+                const testRef = await window.fbAddDoc(
+                    window.fbCollection(window.fbDb, 'connection_tests'),
+                    testData
+                );
+
+                console.log('Firebase connection test successful, document ID:', testRef.id);
+                alert('Firebase 連接測試成功！文檔ID: ' + testRef.id);
+                return true;
+
+            } catch (error) {
+                console.error('Firebase connection test failed:', error);
+                alert('Firebase 連接測試失敗: ' + error.message);
+                return false;
+            }
+        };
+
+        // Load and display submissions
+        window.loadSubmissions = async function (filter = 'all') {
+            const container = document.getElementById('submissionsContainer');
+            const loading = document.getElementById('submissionsLoading');
+
+            if (!container || !loading) return;
+
+            try {
+                // Show loading
+                loading.classList.remove('d-none');
+                container.innerHTML = '';
+
+                if (!window.fbDb) {
+                    throw new Error('Firebase 未初始化');
+                }
+
+                const currentUserId = localStorage.getItem('currentUserId') || '';
+
+                // Build query based on filter
+                let q;
+                if (filter === 'my') {
+                    // Only show current user's submissions
+                    q = window.fbQuery(
+                        window.fbCollection(window.fbDb, 'submissions'),
+                        window.fbWhere('userId', '==', currentUserId),
+                        window.fbOrderBy('createdAt', 'desc')
+                    );
+                } else if (filter === 'recent') {
+                    // Show recent submissions (last 24 hours)
+                    const yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    q = window.fbQuery(
+                        window.fbCollection(window.fbDb, 'submissions'),
+                        window.fbWhere('createdAt', '>=', yesterday.toISOString()),
+                        window.fbOrderBy('createdAt', 'desc')
+                    );
+                } else {
+                    // Show all submissions
+                    q = window.fbQuery(
+                        window.fbCollection(window.fbDb, 'submissions'),
+                        window.fbOrderBy('createdAt', 'desc')
+                    );
+                }
+
+                const querySnapshot = await window.fbGetDocs(q);
+
+                if (querySnapshot.empty) {
+                    container.innerHTML = `
+                         <div class="alert alert-info text-center">
+                             <i class="fas fa-info-circle me-2"></i>
+                             ${filter === 'my' ? '您還沒有提交任何內容' :
+                            filter === 'recent' ? '最近24小時內沒有新的提交' :
+                                '目前沒有任何提交內容'}
+                         </div>
+                     `;
+                    return;
+                }
+
+                // Process submissions
+                querySnapshot.forEach(doc => {
+                    const data = doc.data();
+                    const submissionCard = createSubmissionCard(doc.id, data);
+                    container.appendChild(submissionCard);
+                });
+
+            } catch (error) {
+                console.error('Error loading submissions:', error);
+                container.innerHTML = `
+                     <div class="alert alert-danger">
+                         <i class="fas fa-exclamation-triangle me-2"></i>
+                         載入失敗: ${error.message}
+                     </div>
+                 `;
+            } finally {
+                loading.classList.add('d-none');
+            }
+        };
+
+        // Create submission card
+        function createSubmissionCard(docId, data) {
+            const card = document.createElement('div');
+            card.className = 'card mb-3 submission-card';
+
+            // Format timestamp
+            let timestampStr = '剛剛';
+            if (data.createdAt) {
+                const timestamp = new Date(data.createdAt);
+                timestampStr = new Intl.DateTimeFormat('zh-HK', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }).format(timestamp);
+            }
+
+            // Get emoji for user
+            const userEmoji = getEmojiForUserId(data.userId);
+
+            card.innerHTML = `
+                 <div class="card-header d-flex justify-content-between align-items-center";>
+                     <div class="d-flex align-items-center">
+                         <span class="me-2">${userEmoji}</span>
+                         <span class="fw-semibold">${data.userId || '匿名用戶'}</span>
+                         <span class="badge bg-primary ms-2">${data.section || '未知章節'}</span>
+                         <span class="badge bg-secondary ms-1">${data.workshop || 'ws1'}</span>
+                     </div>
+                     <small class="text-muted">
+                         <i class="far fa-clock me-1"></i>${timestampStr}
+                     </small>
+                 </div>
+                 <div class="card-body">
+                     <div class="submission-content">
+                         ${data.content.replace(/\n/g, '<br>')}
+                     </div>
+                 </div>
+                 <div class="card-footer d-flex justify-content-between align-items-center bg-gray-500">
+                     <small class="text-muted">
+                         <i class="fas fa-id-badge me-1"></i>文檔ID: ${docId}
+                     </small>
+                     <div class="btn-group btn-group-sm">
+                         <button class="btn btn-outline-primary btn-sm" onclick="copySubmission('${docId}')" 
+                                 title="複製內容">
+                             <i class="fas fa-copy"></i>
+                         </button>
+                         <button class="btn btn-outline-info btn-sm" onclick="viewSubmissionDetails('${docId}')" 
+                                 title="查看詳情">
+                             <i class="fas fa-eye"></i>
+                         </button>
+                         ${isAdmin() ? `
+                         <button class="btn btn-outline-danger btn-sm" onclick="deleteSubmission('${docId}', '${data.userId}')" 
+                                 title="刪除提交">
+                             <i class="fas fa-trash"></i>
+                         </button>
+                         ` : ''}
+                     </div>
+                 </div>
+             `;
+
+            return card;
+        }
+
+        // Copy submission content
+        window.copySubmission = async function (docId) {
+            try {
+                const docRef = window.fbDoc(window.fbDb, 'submissions', docId);
+                const docSnap = await window.fbGetDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    await navigator.clipboard.writeText(data.content);
+                    alert('內容已複製到剪貼板！');
+                } else {
+                    alert('找不到該文檔');
+                }
+            } catch (error) {
+                console.error('Error copying submission:', error);
+                alert('複製失敗: ' + error.message);
+            }
+        };
+
+        // View submission details
+        window.viewSubmissionDetails = async function (docId) {
+            try {
+                const docRef = window.fbDoc(window.fbDb, 'submissions', docId);
+                const docSnap = await window.fbGetDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    const details = `
+文檔ID: ${docId}
+用戶ID: ${data.userId}
+章節: ${data.section}
+工作坊: ${data.workshop}
+提交時間: ${new Date(data.createdAt).toLocaleString('zh-HK')}
+狀態: ${data.status || '已提交'}
+
+內容:
+${data.content}
+                     `;
+                    alert(details);
+                } else {
+                    alert('找不到該文檔');
+                }
+            } catch (error) {
+                console.error('Error viewing submission details:', error);
+                alert('查看詳情失敗: ' + error.message);
+            }
+        };
+
+        // Check if current user is admin
+        function isAdmin() {
+            const currentUserId = localStorage.getItem('currentUserId') || '';
+            return currentUserId === '180';
+        }
+
+        // Delete submission (admin only)
+        window.deleteSubmission = async function (docId, userId) {
+            // Check if user is admin
+            if (!isAdmin()) {
+                alert('您沒有權限刪除提交內容');
+                return;
+            }
+
+            // Confirm deletion
+            const confirmDelete = confirm(`確定要刪除用戶 ${userId} 的提交內容嗎？\n\n此操作無法撤銷。`);
+            if (!confirmDelete) {
+                return;
+            }
+
+            try {
+                const docRef = window.fbDoc(window.fbDb, 'submissions', docId);
+
+                // Get the document first to show details
+                const docSnap = await window.fbGetDoc(docRef);
+                if (!docSnap.exists()) {
+                    alert('找不到該文檔');
+                    return;
+                }
+
+                const data = docSnap.data();
+
+                // Delete the document
+                await window.fbDeleteDoc(docRef);
+
+                console.log('Successfully deleted submission:', docId);
+                alert(`已成功刪除用戶 ${userId} 的提交內容\n\n文檔ID: ${docId}\n章節: ${data.section}\n工作坊: ${data.workshop}`);
+
+                // Refresh the submissions display
+                loadSubmissions('all');
+
+            } catch (error) {
+                console.error('Error deleting submission:', error);
+                alert('刪除失敗: ' + error.message);
+            }
+        };
 
     </script>
     <script>
